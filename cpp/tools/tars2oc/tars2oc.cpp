@@ -192,25 +192,25 @@ string Tars2OC::tostrBuiltin(const BuiltinPtr &pPtr) const
     switch (pPtr->kind())
     {
     case Builtin::KindBool:
-        s = "TarsBool";
+        s = "JceBool";
         break;
     case Builtin::KindByte:
-        s = "TarsInt8";
+        s = "JceInt8";
         break;
     case Builtin::KindShort:
-        s = (pPtr->isUnsigned()?"TarsUInt8":"TarsInt16");
+        s = (pPtr->isUnsigned()?"JceUInt8":"JceInt16");
         break;
     case Builtin::KindInt:
-        s = (pPtr->isUnsigned()?"TarsUInt16":"TarsInt32");
+        s = (pPtr->isUnsigned()?"JceUInt16":"JceInt32");
         break;
     case Builtin::KindLong:
-        s =  (pPtr->isUnsigned()?"TarsUInt32":"TarsInt64");
+        s =  (pPtr->isUnsigned()?"JceUInt32":"JceInt64");
         break;
     case Builtin::KindFloat:
-        s = "TarsFloat";
+        s = "JceFloat";
         break;
     case Builtin::KindDouble:
-        s = "TarsDouble";
+        s = "JceDouble";
         break;
     case Builtin::KindString:
         s = "NSString*";
@@ -488,7 +488,7 @@ string Tars2OC::generateH(const StructPtr &pPtr, const string& namespaceId) cons
 
     s << g_parse->printHeaderRemark();
 
-    s << "#import \"TarsObjectV2.h\"" << endl;
+    s << "#import \"JceObjectV2.h\"" << endl;
 
     map<string,int> mTemp = getReferences(pPtr);
     for(map<string,int>::iterator it = mTemp.begin();it != mTemp.end();it++)
@@ -497,7 +497,7 @@ string Tars2OC::generateH(const StructPtr &pPtr, const string& namespaceId) cons
     }
     s << endl;
 
-    s << "@interface " << sStructName << " : TarsObjectV2"<< endl;
+    s << "@interface " << sStructName << " : JceObjectV2"<< endl;
 	s << endl;
 
     //定义成员变量
@@ -549,7 +549,7 @@ string Tars2OC::writeInit(const vector<TypeIdPtr>& vMember) const
 				}
 				else
 				{
-					s <<TAB << getPropertyName(vMember[j]->getId()) << " = DefaultTarsString;" << endl;
+					s <<TAB << getPropertyName(vMember[j]->getId()) << " = DefaultJceString;" << endl;
 				}
 			}
 			else if((vMember[j]->def() != "0"))
@@ -567,18 +567,18 @@ string Tars2OC::writeInit(const vector<TypeIdPtr>& vMember) const
 			{
 				if (toClassName(vPtr) == "list<char>")
 				{
-					s <<TAB << getPropertyName(vMember[j]->getId()) << " = DefaultTarsData;" << endl;
+					s <<TAB << getPropertyName(vMember[j]->getId()) << " = DefaultJceData;" << endl;
 				}
 				else
 				{
-					s <<TAB << getPropertyName(vMember[j]->getId()) << " = DefaultTarsArray;" << endl;
+					s <<TAB << getPropertyName(vMember[j]->getId()) << " = DefaultJceArray;" << endl;
 				}
 			}
 
 			MapPtr mPtr = MapPtr::dynamicCast(vMember[j]->getTypePtr());
 			if (mPtr)
 			{
-				s <<TAB << getPropertyName(vMember[j]->getId()) << " = DefaultTarsDictionary;" << endl;
+				s <<TAB << getPropertyName(vMember[j]->getId()) << " = DefaultJceDictionary;" << endl;
 			}
 
 			StructPtr sPtr = StructPtr::dynamicCast(vMember[j]->getTypePtr());
@@ -635,7 +635,7 @@ string Tars2OC::writeTarsType(const StructPtr &pPtr) const
 {
 	ostringstream s;
 
-	s << "+ (NSString*)tarsType" <<endl;
+	s << "+ (NSString*)jceType" <<endl;
 	s << "{" <<endl;
 
 	INC_TAB;
@@ -692,7 +692,7 @@ string Tars2OC::generateM(const EnumPtr &pPtr, const string& namespaceId) const
 
 	s << g_parse->printHeaderRemark();
 
-	s << "#import \"TarsObjectV2.h\"" << endl;
+	s << "#import \"JceObjectV2.h\"" << endl;
 
 	s << "#import \"" <<sEnumPrefix<<".h\""<<endl;
 
@@ -823,7 +823,7 @@ string Tars2OC::generateH(const EnumPtr &pPtr, const string& namespaceId) const
 
     s << g_parse->printHeaderRemark();
 
-    s << "#import \"TarsObjectV2.h\"" << endl;
+    s << "#import \"JceObjectV2.h\"" << endl;
 
 	s << endl;
     s << "enum {"<<endl;

@@ -34,7 +34,7 @@ Tars2Java::Tars2Java()
     _bCheckDefault = false;
     _bWithJbr = false;
     _bWithCompact = false;
-    s_TARS_PACKAGE       = g_default_package + TARS_PACKAGE;
+    s_TARS_PACKAGE       = "com.duowan.taf.jce";
     s_PROXY_PACKAGE     = g_default_package + PROXY_PACKAGE;
     s_WUP_PACKAGE       = g_default_package + WUP_PACKAGE;
 }
@@ -494,7 +494,7 @@ string Tars2Java::generateJava(const StructPtr& pPtr, const NamespacePtr& nPtr) 
 //      s << endl;
 //  }
 
-    s << TAB << "public final class " << pPtr->getId() << " extends " << s_TARS_PACKAGE << ".TarsStruct";
+    s << TAB << "public final class " << pPtr->getId() << " extends " << s_TARS_PACKAGE << ".JceStruct";
 //  if (_bWithWsp)
 //  {
 //      s << " implements WspStruct";
@@ -717,7 +717,7 @@ string Tars2Java::generateJava(const StructPtr& pPtr, const NamespacePtr& nPtr) 
 
         for (size_t i = 0; i < key.size(); i++)
         {
-            s << TAB << s_TARS_PACKAGE << ".TarsUtil.compareTo(" << key[i] << ", o."
+            s << TAB << s_TARS_PACKAGE << ".JceUtil.compareTo(" << key[i] << ", o."
                 << key[i] << ")" << ((i < key.size() - 1) ? ", " : "") << endl;
         }
         DEL_TAB;
@@ -760,7 +760,7 @@ string Tars2Java::generateJava(const StructPtr& pPtr, const NamespacePtr& nPtr) 
         {
             for (size_t i = 0; i < key.size(); i++)
             {
-                s << TAB << s_TARS_PACKAGE << ".TarsUtil.equals(" << key[i] << ", t." << key[i] << ")"
+                s << TAB << s_TARS_PACKAGE << ".JceUtil.equals(" << key[i] << ", t." << key[i] << ")"
                     << ((i < key.size() - 1) ? " && " : " );") << endl;
             }
         }
@@ -769,7 +769,7 @@ string Tars2Java::generateJava(const StructPtr& pPtr, const NamespacePtr& nPtr) 
             //使用所有元素比较
             for (size_t i = 0; i < member.size(); i++)
             {
-                s << TAB << s_TARS_PACKAGE << ".TarsUtil.equals(" << member[i]->getId() << ", t." << member[i]->getId() << ")"
+                s << TAB << s_TARS_PACKAGE << ".JceUtil.equals(" << member[i]->getId() << ", t." << member[i]->getId() << ")"
                     << ((i < member.size() - 1) ? " && " : " );") << endl;
             }
         }
@@ -793,7 +793,7 @@ string Tars2Java::generateJava(const StructPtr& pPtr, const NamespacePtr& nPtr) 
             INC_TAB;
             for (size_t i = 0; i < key.size(); i++)
             {
-                s << TAB << s_TARS_PACKAGE << ".TarsUtil.hashCode(" << key[i]
+                s << TAB << s_TARS_PACKAGE << ".JceUtil.hashCode(" << key[i]
                     << ")" << ((i < key.size() - 1) ? ", " : "") << endl;
             }
             DEL_TAB;
@@ -853,7 +853,7 @@ string Tars2Java::generateJava(const StructPtr& pPtr, const NamespacePtr& nPtr) 
     }
 
     //writeTo()
-    s << TAB << "public void writeTo(" << s_TARS_PACKAGE << ".TarsOutputStream _os)" << endl;
+    s << TAB << "public void writeTo(" << s_TARS_PACKAGE << ".JceOutputStream _os)" << endl;
     s << TAB << "{" << endl;
     INC_TAB;
     for (size_t i = 0; i < member.size(); i++)
@@ -950,7 +950,7 @@ string Tars2Java::generateJava(const StructPtr& pPtr, const NamespacePtr& nPtr) 
     }
     s << endl;
     //readFrom()
-    s << TAB << "public void readFrom(" << s_TARS_PACKAGE << ".TarsInputStream _is)" << endl;
+    s << TAB << "public void readFrom(" << s_TARS_PACKAGE << ".JceInputStream _is)" << endl;
     s << TAB << "{" << endl;
     INC_TAB;
     for (size_t i = 0; i < member.size(); i++)
@@ -1028,7 +1028,7 @@ string Tars2Java::generateJava(const StructPtr& pPtr, const NamespacePtr& nPtr) 
         s << TAB << "public void display(java.lang.StringBuilder _os, int _level)" << endl;
         s << TAB << "{" << endl;
         INC_TAB;
-        s << TAB << s_TARS_PACKAGE << ".TarsDisplayer _ds = new " << s_TARS_PACKAGE << ".TarsDisplayer(_os, _level);" << endl;
+        s << TAB << s_TARS_PACKAGE << ".JceDisplayer _ds = new " << s_TARS_PACKAGE << ".JceDisplayer(_os, _level);" << endl;
         for (size_t i = 0; i < member.size(); i++)
         {
             s << TAB << "_ds.display(" << member[i]->getId()
@@ -1042,7 +1042,7 @@ string Tars2Java::generateJava(const StructPtr& pPtr, const NamespacePtr& nPtr) 
 //      s << TAB << "public void displaySimple(java.lang.StringBuilder _os, int _level)" << endl;
 //      s << TAB << "{" << endl;
 //      INC_TAB;
-//      s << TAB << s_TARS_PACKAGE << ".TarsDisplayer _ds = new " << s_TARS_PACKAGE << ".TarsDisplayer(_os, _level);" << endl;
+//      s << TAB << s_TARS_PACKAGE << ".JceDisplayer _ds = new " << s_TARS_PACKAGE << ".JceDisplayer(_os, _level);" << endl;
 //      for (size_t i = 0; i < member.size(); i++)
 //      {
 //          if(i != member.size() - 1)
