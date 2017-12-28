@@ -156,6 +156,7 @@ public class Tars2JavaMojo extends AbstractMojo {
                 } else {
                     genPrx(dirPath, packageName, ns.namespace(), tarsInterface, nsMap);
                     genPrxCallback(dirPath, packageName, ns.namespace(), tarsInterface, nsMap);
+                    genTestPrxImpl(dirPath, packageName, ns.namespace(), tarsInterface, nsMap);
                 }
             }
         }
@@ -525,6 +526,117 @@ public class Tars2JavaMojo extends AbstractMojo {
         out.close();
 
         getLog().info("generate Prx " + prxClass);
+    }
+
+    public void genTestPrxImpl(String dirPath, String packageName, String namespace, TarsInterface _interface,
+                           Map<String, List<TarsNamespace>> nsMap) throws Exception {
+        String prxClass = _interface.interfaceName() + "PrxImpl";
+        String prxInterface = _interface.interfaceName() + "Prx";
+
+        PrintWriter out = new PrintWriter(dirPath + prxClass + ".java", tars2JavaConfig.charset);
+
+        printHead(out);
+        // 1. print package and imports.
+        out.println("package " + packageName + ";");
+        out.println();
+
+        out.println("import com.huya.yaoguo.tars.idl.generated.yaoguo.*;");
+        out.println("import com.huya.yaoguo.common.util.*;");
+        out.println("import com.qq.tars.protocol.tars.annotation.*;");
+        out.println("import com.qq.tars.common.support.Holder;");
+
+        out.println();
+
+        // 2. print comments and class line.
+//        printDoc(out, getDoc(_interface, ""));
+//        out.println("@Servant");
+        out.println("// This class for test only!!!");
+        out.println("public class " + prxClass + " implements "+prxInterface+" {");
+        // out.println();
+
+        // 4. print tars methods and prototypes
+        for (TarsOperation op : _interface.operationList()) {
+            // 2 print sync method without context
+//            out.println(getDoc(op, "\t"));
+            out.println("\t@Override");
+            out.println("\tpublic " + type(op.retType(), nsMap) + " " + op.oprationName() + "(" + opertaionParams(null, op.paramList(), null, true, nsMap) + ") {");
+            //WupUtil.postWupRequest("yaoguoui", "BatchGetPresenterInfoByUids", tReq, tRsp);
+            out.println("\t\tWupUtil.postWupRequest(\"yaoguoui\", \""+op.oprationName()+"\", "+getParamNames(op.paramList())+");");
+            out.println("\t\treturn 0;");
+            out.println("\t}");
+
+            // 3 print sync method with context
+            out.println(getDoc(op, "\t"));
+            out.println("\tpublic " + type(op.retType(), nsMap) + " " + op.oprationName() + "(" + opertaionParams(null, op.paramList(), Arrays.asList("@TarsContext java.util.Map<String, String> ctx"), true, nsMap) + ") {");
+            out.println("\t\t// not implement in test PrxImpl");
+            out.println("\t\treturn 0;");
+            out.println("\t}");
+
+            // 4 print async method without context
+            out.println(getDoc(op, "\t"));
+            out.println("\tpublic void async_" + op.oprationName() + "(" + opertaionParams(Arrays.asList("@TarsCallback " + prxInterface + "Callback callback"), op.paramList(), null, false, nsMap) + ") {");
+            out.println("\t\t// not implement in test PrxImpl");
+            out.println("\t}");
+
+            // 5 print async method with context
+            out.println(getDoc(op, "\t"));
+            out.println("\tpublic void async_" + op.oprationName() + "(" + opertaionParams(Arrays.asList("@TarsCallback " + prxInterface + "Callback callback"), op.paramList(), Arrays.asList("@TarsContext java.util.Map<String, String> ctx"), false, nsMap) + ") {");
+            out.println("\t\t// not implement in test PrxImpl");
+            out.println("\t}");
+
+        }
+
+        out.println("}");
+        out.close();
+
+        getLog().info("generate Test PrxImpl " + prxClass);
+    }
+
+    private String getParamNames(List<TarsParam> paramList){
+        String result = "";
+        for(TarsParam param : paramList){
+            result += (param.paramName()+", ");
+        }
+        if(!result.equals("")){
+            result = result.substring(0, result.length()-2);
+        }
+        return result;
+    }
+
+    public void genTestPrx(String dirPath, String packageName, String namespace, TarsInterface _interface,
+                       Map<String, List<TarsNamespace>> nsMap) throws Exception {
+        String prxClass = _interface.interfaceName() + "TestPrx";
+
+        PrintWriter out = new PrintWriter(dirPath + prxClass + ".java", tars2JavaConfig.charset);
+
+        printHead(out);
+        // 1. print package and imports.
+        out.println("package " + packageName + ";");
+        out.println();
+
+        out.println("import com.qq.tars.protocol.annotation.*;");
+        out.println("import com.qq.tars.protocol.tars.annotation.*;");
+        out.println("import com.qq.tars.common.support.Holder;");
+
+        out.println();
+
+        // 2. print comments and class line.
+        printDoc(out, getDoc(_interface, ""));
+        out.println("@Servant");
+        out.println("public interface " + prxClass + " {");
+        // out.println();
+
+        // 4. print tars methods and prototypes
+        for (TarsOperation op : _interface.operationList()) {
+            // 2 print sync method without context
+            out.println(getDoc(op, "\t"));
+            out.println("\tpublic " + type(op.retType(), nsMap) + " " + op.oprationName() + "(" + opertaionParams(null, op.paramList(), null, true, nsMap) + ");");
+        }
+
+        out.println("}");
+        out.close();
+
+        getLog().info("generate Test Prx " + prxClass);
     }
 
     public void genServant(String dirPath, String packageName, String namespace, TarsInterface _interface,
