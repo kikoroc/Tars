@@ -29,6 +29,7 @@ public class YaoGuoUdbLoginConfigAdapterImpl implements UdbLoginConfigAdapter {
 
         filterUrlPatternList.add("/pages/index");
         filterUrlPatternList.add("/pages/tree");
+        filterUrlPatternList.add("/pages/op_manage");
         filterUrlPatternList.add("/pages/server/");
     }
 

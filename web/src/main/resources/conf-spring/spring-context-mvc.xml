@@ -42,6 +42,7 @@
         <mvc:interceptor>
             <mvc:mapping path="/" />
             <mvc:mapping path="/index" />
+            <mvc:mapping path="/op_manage" />
             <mvc:mapping path="/tree" />
             <mvc:mapping path="/server/**" />
             <bean class="com.qq.tars.web.udb.UdbLoginAdminInterceptor" />

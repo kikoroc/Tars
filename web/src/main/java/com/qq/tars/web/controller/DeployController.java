@@ -18,11 +18,13 @@ package com.qq.tars.web.controller;
 
 import com.qq.common.WrappedController;
 import com.qq.tars.entity.ProfileTemplate;
+import com.qq.tars.service.SystemConfigService;
 import com.qq.tars.service.server.DeployServer;
 import com.qq.tars.service.server.ServerService;
 import com.qq.tars.service.template.TemplateService;
 import com.qq.tars.validate.EnableSet;
 import com.qq.tars.web.controller.server.ServerConfView;
+import com.qq.tars.web.udb.UdbLoginUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +34,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -47,11 +50,16 @@ public class DeployController extends WrappedController {
     @Autowired
     private TemplateService templateService;
 
+    @Autowired
+    private SystemConfigService systemConfigService;
+
     @RequestMapping(
             value = "op_manage",
             produces = {"text/html"}
     )
-    public String pageOpManage() throws Exception {
+    public String pageOpManage(HttpServletRequest request) throws Exception {
+        request.setAttribute("userName", UdbLoginUtil.getSessionYyname(request));
+        request.setAttribute("env", systemConfigService.getConf("env"));
         return "op_manage";
     }
 
