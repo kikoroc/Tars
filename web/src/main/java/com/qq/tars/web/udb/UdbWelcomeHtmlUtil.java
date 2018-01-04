@@ -170,13 +170,13 @@ public class UdbWelcomeHtmlUtil {
         response.setContentType("text/html;charset=UTF-8");
         try {
             PrintWriter out = response.getWriter();
-            out.append("<script src=\"http://res.udb.duowan.com/js/jquery-1.4.2.min.js\" type=\"text/javascript\"></script>");
+            /*out.append("<script src=\"http://res.udb.duowan.com/js/jquery-1.4.2.min.js\" type=\"text/javascript\"></script>");
             out.append("<script src='http://udbres.huya.com/js/HyUDBWebSDK-2.0.js'></script>");
             out.append("<script src='http://udbres.huya.com/js/HyLoginSDK-2.0.js'></script>");
             out.append("<script>");
             out.append("var huyaLogin=new HyLogin({url:{common:'http://ygtars.huya.com/'},global:{thirdWin:'2',redirectUrl:'self'}});");
-            out.append("</script>");
-            out.append("你不是管理员<a href='javascript:huyaLogin.logout();'>退出当前帐号</a>");
+            out.append("</script>");*/
+            out.append("你不是管理员<a href='/pages/udb/logout.do'>退出当前帐号</a>");
             out.flush();
             out.close();
         } catch (Exception e) {

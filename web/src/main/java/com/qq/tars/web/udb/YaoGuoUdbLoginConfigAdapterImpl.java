@@ -25,6 +25,7 @@ public class YaoGuoUdbLoginConfigAdapterImpl implements UdbLoginConfigAdapter {
         AdminList.add("dw_wangpeng1");
         AdminList.add("dw_zhangliang");
         AdminList.add("dw_shixiangwen1");
+        AdminList.add("dw_huzhenjie");
 
         filterUrlPatternList.add("/pages/index");
         filterUrlPatternList.add("/pages/tree");
