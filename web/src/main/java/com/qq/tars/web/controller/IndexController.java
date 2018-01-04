@@ -17,20 +17,29 @@
 package com.qq.tars.web.controller;
 
 import com.qq.common.WrappedController;
+import com.qq.tars.service.SystemConfigService;
+import com.qq.tars.web.udb.UdbLoginUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 public class IndexController extends WrappedController {
+
+    @Autowired
+    private SystemConfigService systemConfigService;
 
     @RequestMapping(
             value = "index",
             produces = {"text/html"}
     )
     @Transactional(rollbackFor = {Exception.class})
-    public String index() throws Exception {
+    public String index(HttpServletRequest request) throws Exception {
+        request.setAttribute("userName", UdbLoginUtil.getSessionYyname(request));
+        request.setAttribute("env", systemConfigService.getConf("env"));
         return "index";
     }
-
 }

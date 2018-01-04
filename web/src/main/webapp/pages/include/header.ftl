@@ -24,6 +24,12 @@
                 <li class="index"><a href="/">服务管理</a></li>
                 <li class="operator"><a href="/pages/op_manage.htm">运维管理</a></li>
             </ul>
+
+            <ul class="nav navbar-nav" style="float: right">
+                <li class="none"><a href="javascript:void(0);">当前环境:${env}</a></li>
+                <li class="none"><a href="javascript:void(0);">欢迎你,${userName}</a></li>
+                <li class="none"><a href="/pages/udb/logout.do">退出</a></li>
+            </ul>
         </div>
     </div>
 </nav>

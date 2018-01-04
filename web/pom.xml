@@ -287,5 +287,55 @@
             <version>${hamcrest.version}</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- udb dependency-->
+        <dependency>
+            <groupId>cn.huanju.udb.lgn</groupId>
+            <artifactId>ca-client</artifactId>
+            <version>1.8.7-20160420</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.huanju.udb.lgn</groupId>
+            <artifactId>udb-client</artifactId>
+            <version>1.8.7-20161018</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.huanju.udb.lgn</groupId>
+            <artifactId>ca-common</artifactId>
+            <version>1.8-20160428</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.huanju.udb.lgn</groupId>
+            <artifactId>oauth</artifactId>
+            <version>20150518</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.huanju.udb.lgn</groupId>
+            <artifactId>oauth-consumer</artifactId>
+            <version>20150518</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.huanju.udb.lgn</groupId>
+            <artifactId>oauth-httpclient3</artifactId>
+            <version>20151215</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-httpclient</groupId>
+            <artifactId>commons-httpclient</artifactId>
+            <version>3.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.2.2</version>
+        </dependency>
+        <!-- huya udb -->
+        <dependency>
+            <groupId>com.huya.passport</groupId>
+            <artifactId>websdk</artifactId>
+            <version>0.0.8</version>
+        </dependency>
+        <!-- huya udb -->
+        <!-- udb dependency-->
     </dependencies>
 </project>

@@ -28,3 +28,6 @@
 /java/examples/.settings/org.eclipse.m2e.core.prefs
 /java/tools/.project
 /java/tools/.settings/org.eclipse.m2e.core.prefs
+*.iml
+.idea/
+target/

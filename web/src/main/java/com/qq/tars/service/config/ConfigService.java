@@ -187,7 +187,9 @@ public class ConfigService {
     @Transactional(rollbackFor = Exception.class)
     public int deleteUnusedNodeConfigFiles() {
         int affected = configMapper.deleteUnusedNodeConfigFile();
-        log.info("delete {} unused node config file(s)", affected);
+        if(affected > 0) {
+            log.info("delete {} unused node config file(s)", affected);
+        }
         return affected;
     }
 

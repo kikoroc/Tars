@@ -31,6 +31,22 @@
             </bean>
         </mvc:message-converters>
     </mvc:annotation-driven>
+    
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <bean class="com.qq.tars.web.udb.UdbLoginInterceptor" />
+            <!--<bean class="com.qq.tars.web.udb.HuyaUdbLoginInterceptor" />-->
+        </mvc:interceptor>
+
+        <mvc:interceptor>
+            <mvc:mapping path="/" />
+            <mvc:mapping path="/index" />
+            <mvc:mapping path="/tree" />
+            <mvc:mapping path="/server/**" />
+            <bean class="com.qq.tars.web.udb.UdbLoginAdminInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
 
     <bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
         <property name="templateLoaderPath" value="/pages/"/>

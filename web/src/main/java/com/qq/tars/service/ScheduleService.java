@@ -32,6 +32,8 @@ public class ScheduleService {
 
     public void checkUnusedConfigFiles() {
         int affected = configService.deleteUnusedNodeConfigFiles();
-        log.info("delete {} unused node config file(s)", affected);
+        if(affected > 0){
+            log.info("delete {} unused node config file(s)", affected);
+        }
     }
 }
