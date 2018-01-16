@@ -698,7 +698,7 @@ string Tars2OC::generateM(const EnumPtr &pPtr, const string& namespaceId) const
 
 	s << endl;
 
-	s << "#if TARSV2_ENUM_ETOS_AND_STOE_SUPPORTED" <<endl;
+	s << "#if JCEV2_ENUM_ETOS_AND_STOE_SUPPORTED" <<endl;
 	s <<endl;
 
 	s << "@implementation " <<sEnumPrefix<<"Helper"<<endl;
@@ -737,7 +737,7 @@ string Tars2OC::generateM(const EnumPtr &pPtr, const string& namespaceId) const
 	{
 		string sMem = sEnumPrefix + "_" + member[i]->getId();
 
-		s << TAB << "if(isTarsEnumStringEqual(s, @\"" << sMem << "\")) return " << sMem <<";"<<endl;
+		s << TAB << "if(isJceEnumStringEqual(s, @\"" << sMem << "\")) return " << sMem <<";"<<endl;
 	}
 	s << TAB << "return NSIntegerMin;" << endl;
 
@@ -845,10 +845,10 @@ string Tars2OC::generateH(const EnumPtr &pPtr, const string& namespaceId) const
 	s <<"#define "<<sEnumPrefix<<" NSInteger"<<endl;
 	s <<endl;
 
-	s << "#if TARSV2_ENUM_ETOS_AND_STOE_SUPPORTED" <<endl;
+	s << "#if JCEV2_ENUM_ETOS_AND_STOE_SUPPORTED" <<endl;
 	s <<endl;
 
-	s << "@interface " <<sEnumPrefix << "Helper: TarsEnumHelper" <<endl;
+	s << "@interface " <<sEnumPrefix << "Helper: JceEnumHelper" <<endl;
 	s <<endl;
 
 	s << "+ (NSString *)etos:(" << sEnumPrefix <<")e;"<<endl;

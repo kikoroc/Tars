@@ -20,13 +20,7 @@ public class YaoGuoUdbLoginConfigAdapterImpl implements UdbLoginConfigAdapter {
 
     private static List<String> filterUrlPatternList = new ArrayList<>();
     private static List<String> excludedUrlList = new ArrayList<>();
-    private static List<String> AdminList = new ArrayList<>();
     static {
-        AdminList.add("dw_wangpeng1");
-        AdminList.add("dw_zhangliang");
-        AdminList.add("dw_shixiangwen1");
-        AdminList.add("dw_huzhenjie");
-
         filterUrlPatternList.add("/pages/index");
         filterUrlPatternList.add("/pages/tree");
         filterUrlPatternList.add("/pages/op_manage");
@@ -63,7 +57,9 @@ public class YaoGuoUdbLoginConfigAdapterImpl implements UdbLoginConfigAdapter {
         return new UdbAdminAuthAdapter() {
             @Override
             public boolean isAdmin(long yyuid, String passport) {
-                return AdminList.contains(passport);
+                return Arrays.asList(
+                        systemConfigService.getConf("adminUser").split(","))
+                        .contains(passport);
             }
         };
     }
