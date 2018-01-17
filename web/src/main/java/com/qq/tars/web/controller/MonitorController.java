@@ -17,6 +17,8 @@
 package com.qq.tars.web.controller;
 
 import com.qq.common.WrappedController;
+import com.qq.tars.entity.ApiMonitorData;
+import com.qq.tars.service.ApiMonitorDataService;
 import com.qq.tars.service.monitor.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -34,6 +36,9 @@ public class MonitorController extends WrappedController {
 
     @Autowired
     private TARSPropertyMonitorService tarsPropertyMonitorService;
+
+    @Autowired
+    private ApiMonitorDataService apiMonitorDataService;
 
     @RequestMapping(
             value = "server/api/tarsstat_monitor_data",
@@ -53,6 +58,15 @@ public class MonitorController extends WrappedController {
     public List<TARSPropertyMonitorDataRow> tarsproperty(HttpServletRequest request) throws Exception {
         TARSPropertyMonitorCondition condition = new TARSPropertyMonitorCondition(request);
         return tarsPropertyMonitorService.getTARSPropertyMonitorData(condition);
+    }
+
+    @RequestMapping(
+            value = "monitor/api/performance",
+            produces = {"application/json"}
+    )
+    @ResponseBody
+    public List<ApiMonitorData> apiPerformance(){
+        return apiMonitorDataService.getApiMonitorData();
     }
 
 }
