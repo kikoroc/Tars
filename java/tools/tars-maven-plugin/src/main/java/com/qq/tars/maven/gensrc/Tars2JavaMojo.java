@@ -151,13 +151,14 @@ public class Tars2JavaMojo extends AbstractMojo {
         // generate interface Prx
         for (TarsNamespace ns : namespaces) {
             for (TarsInterface tarsInterface : ns.interfaceList()) {
-                if (tars2JavaConfig.servant) {
+                // 忽略servant配置，直接全部生成servant和prx代码
+//                if (tars2JavaConfig.servant) {
                     genServant(dirPath, packageName, ns.namespace(), tarsInterface, nsMap);
-                } else {
+//                } else {
                     genPrx(dirPath, packageName, ns.namespace(), tarsInterface, nsMap);
                     genPrxCallback(dirPath, packageName, ns.namespace(), tarsInterface, nsMap);
                     genTestPrxImpl(dirPath, packageName, ns.namespace(), tarsInterface, nsMap);
-                }
+//                }
             }
         }
         getLog().info("module " + nsName + " <<");
