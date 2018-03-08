@@ -562,7 +562,12 @@ public class Tars2JavaMojo extends AbstractMojo {
             out.println("\t@Override");
             out.println("\tpublic " + type(op.retType(), nsMap) + " " + op.oprationName() + "(" + opertaionParams(null, op.paramList(), null, true, nsMap) + ") {");
             //WupUtil.postWupRequest("yaoguoui", "BatchGetPresenterInfoByUids", tReq, tRsp);
-            out.println("\t\tWupUtil.postWupRequest(\"yaoguoui\", \""+op.oprationName()+"\", "+getParamNames(op.paramList())+");");
+            String params = getParamNames(op.paramList());
+            if(params == null || "".equals(params)){
+                out.println("\t\tWupUtil.postWupRequest(\"yaoguoui\", \""+op.oprationName()+", null, null);");
+            }else{
+                out.println("\t\tWupUtil.postWupRequest(\"yaoguoui\", \""+op.oprationName()+"\", "+params+");");
+            }
             out.println("\t\treturn 0;");
             out.println("\t}");
 

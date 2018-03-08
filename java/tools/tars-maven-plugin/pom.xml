@@ -10,6 +10,7 @@
 	</parent>
 	<artifactId>tars-maven-plugin</artifactId>
 	<name>${project.artifactId}</name>
+	<version>1.0.3-yaoguo</version>
 	<packaging>maven-plugin</packaging>
 
 	<properties>
